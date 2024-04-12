@@ -1,18 +1,36 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <router-link
+      v-for="user in users"
+      :key="user.id"
+      :to="{ name: 'chat', params: { id: user.id } }"
+    >
+      <userCard :user="user" />
+    </router-link>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import { mapGetters } from "vuex";
+import userCard from "../components/ui/userCard.vue";
 
 export default {
   name: "HomeView",
+  computed: {
+    ...mapGetters(["users"]),
+  },
   components: {
-    HelloWorld,
+    userCard,
   },
 };
 </script>
+
+<style scoped>
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  height: 100%;
+}
+</style>
