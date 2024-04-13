@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "ChatView",
@@ -46,6 +46,7 @@ export default {
     },
   },
   methods: {
+    ...mapMutations(["setCurrentChat"]),
     sendMessage() {
       if (!this.message.trim() || !this.selectedChat) return;
 
@@ -60,6 +61,14 @@ export default {
 
       this.message = "";
     },
+    scrollToBottom() {
+      this.$nextTick(() => {
+        const container = this.$el.querySelector(".chat__content");
+        if (container) {
+          container.lastElementChild.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+    },
     handleStorageUpdate(event) {
       if (event.key === "receivedMessages") {
         this.messages =
@@ -67,8 +76,13 @@ export default {
       }
     },
   },
+  updated() {
+    this.scrollToBottom();
+  },
   created() {
     this.messages = JSON.parse(localStorage.getItem("receivedMessages")) || [];
+    const selectedUser = JSON.parse(localStorage.getItem("currentUser")) || null
+    this.setCurrentChat(selectedUser)
     window.addEventListener("storage", this.handleStorageUpdate);
   },
 };
