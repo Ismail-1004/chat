@@ -4,10 +4,7 @@
     @click="switchChat(user)"
   >
     <img class="user__img" src="@/assets/images/user.jpg" alt="user" />
-    <div class="user__info">
-      <h3 class="user__name">{{ user.name }}</h3>
-      <p class="user__msg">Message</p>
-    </div>
+    <h3 class="user__name">{{ user.name }}</h3>
   </div>
 </template>
 
@@ -32,6 +29,7 @@ export default {
 .user {
   width: 100%;
   display: flex;
+  align-items: center;
   gap: 10px;
   border-top: 1px solid black;
   padding: 10px;
@@ -49,10 +47,6 @@ export default {
   &__img {
     width: 60px;
     object-fit: cover;
-  }
-
-  &__info {
-    text-align: left;
   }
 }
 </style>

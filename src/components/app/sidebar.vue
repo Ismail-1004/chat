@@ -1,5 +1,6 @@
 <template>
   <div class="sidebar">
+    <router-link class="sidebar__logout" to="/"> Log out </router-link>
     <div class="sidebar__user">
       <userChatVue
         v-for="user in filteredUsers"
@@ -42,5 +43,14 @@ export default {
   max-width: 300px;
   width: 100%;
   padding: 10px 0;
+
+  &__logout {
+    color: white;
+    padding: 8px;
+    background: black;
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
 }
 </style>
